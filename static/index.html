@@ -285,6 +285,13 @@
         let currentView = 'grid';
         let usersData = [];
 
+        // Escape HTML to prevent XSS attacks
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
         // Fetch users from the API
         async function fetchUsers() {
             try {
@@ -317,19 +324,19 @@
             gridView.innerHTML = users.map(user => `
                 <div class="user-card">
                     <h3>
-                        <span class="user-id">${user.id}</span>
-                        ${user.firstName} ${user.lastName}
+                        <span class="user-id">${escapeHtml(String(user.id))}</span>
+                        ${escapeHtml(user.firstName)} ${escapeHtml(user.lastName)}
                     </h3>
                     <div class="user-info">
                         <div class="info-row">
                             <span class="info-label">Email:</span>
                             <span class="info-value">
-                                <a href="mailto:${user.email}" class="email-link">${user.email}</a>
+                                <a href="mailto:${escapeHtml(user.email)}" class="email-link">${escapeHtml(user.email)}</a>
                             </span>
                         </div>
                         <div class="info-row">
                             <span class="info-label">Address:</span>
-                            <span class="info-value">${user.address}</span>
+                            <span class="info-value">${escapeHtml(user.address)}</span>
                         </div>
                     </div>
                 </div>
@@ -353,11 +360,11 @@
                     <tbody>
                         ${users.map(user => `
                             <tr>
-                                <td>${user.id}</td>
-                                <td>${user.firstName}</td>
-                                <td>${user.lastName}</td>
-                                <td><a href="mailto:${user.email}" class="email-link">${user.email}</a></td>
-                                <td>${user.address}</td>
+                                <td>${escapeHtml(String(user.id))}</td>
+                                <td>${escapeHtml(user.firstName)}</td>
+                                <td>${escapeHtml(user.lastName)}</td>
+                                <td><a href="mailto:${escapeHtml(user.email)}" class="email-link">${escapeHtml(user.email)}</a></td>
+                                <td>${escapeHtml(user.address)}</td>
                             </tr>
                         `).join('')}
                     </tbody>

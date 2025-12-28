@@ -57,6 +57,8 @@ A Single Page Application (SPA) built with Python Flask backend and vanilla Java
 
 ## Running the Application
 
+### Development Mode (Default)
+
 1. **Start the Flask server**:
    ```bash
    python app.py
@@ -68,7 +70,21 @@ A Single Page Application (SPA) built with Python Flask backend and vanilla Java
    http://localhost:5000
    ```
 
-The server will run on `http://localhost:5000` by default.
+The server will run on `http://localhost:5000` by default in debug mode.
+
+### Production Mode
+
+For production deployment, disable debug mode:
+
+```bash
+export FLASK_DEBUG=False  # On macOS/Linux
+# OR
+set FLASK_DEBUG=False     # On Windows
+
+python app.py
+```
+
+**Security Note**: Never run Flask in debug mode in production environments, as it allows arbitrary code execution through the debugger.
 
 ## API Endpoints
 

@@ -85,4 +85,6 @@ if __name__ == '__main__':
     if not os.path.exists('static'):
         os.makedirs('static')
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use debug mode only in development (set DEBUG=False for production)
+    debug_mode = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)
